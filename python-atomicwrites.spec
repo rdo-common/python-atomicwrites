@@ -1,11 +1,17 @@
+# invoke with "--with tests" to enable tests, currently disabled
+# as network is required
+
+%bcond_with tests
+
 %if 0%{?fedora}
 %bcond_without python3
 %else
 %bcond_with python3
 %endif
+
 Name:       python-atomicwrites
 Version:    0.1.4
-Release:    4%{?git_tag}%{?dist}
+Release:    5%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -87,7 +93,9 @@ popd
 %endif
 
 %check
+%if %{with tests}
 %{__python} run-tests.py
+%endif
 
 # needs python3-tox bz #1010767
 #if {with python3}
@@ -106,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 02 2015 Michele Baldessari <michele@redhat.com> - 0.1.4-5
+- Disable tests as they require network
+
 * Sun Mar 01 2015 Michele Baldessari <michele@redhat.com> - 0.1.4-4
 - Move it to python 3
 
