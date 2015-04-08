@@ -10,8 +10,8 @@
 %endif
 
 Name:       python-atomicwrites
-Version:    0.1.4
-Release:    5%{?git_tag}%{?dist}
+Version:    0.1.5
+Release:    1%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -114,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Wed Apr 08 2015 Michele Baldessari <michele@acksyn.org> - 0.1.5-1
+- New upstream (BZ 1209294)
+
 * Mon Mar 02 2015 Michele Baldessari <michele@redhat.com> - 0.1.4-5
 - Disable tests as they require network
 
