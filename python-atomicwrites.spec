@@ -10,7 +10,7 @@
 %endif
 
 Name:       python-atomicwrites
-Version:    0.1.5
+Version:    0.1.8
 Release:    1%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
@@ -114,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Sun Sep 13 2015 Michele Baldessari <michele@acksyn.org> - 0.1.8-1
+- New upstream (BZ 1262584)
+
 * Wed Apr 08 2015 Michele Baldessari <michele@acksyn.org> - 0.1.5-1
 - New upstream (BZ 1209294)
 
