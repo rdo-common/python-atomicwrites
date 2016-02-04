@@ -11,7 +11,7 @@
 
 Name:       python-atomicwrites
 Version:    0.1.8
-Release:    2%{?git_tag}%{?dist}
+Release:    3%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -114,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
