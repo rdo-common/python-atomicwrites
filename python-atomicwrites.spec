@@ -117,6 +117,9 @@ popd
 * Wed Jul 27 2016 Michele Baldessari <michele@acksyn.org> - 1.1.0-1
 - New upstream release
 
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.0-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Sat Mar 26 2016 Michele Baldessari <michele@acksyn.org> - 1.0.0-1
 - New upstream release
 
