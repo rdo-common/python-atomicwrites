@@ -11,7 +11,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    1%{?git_tag}%{?dist}
+Release:    2%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -114,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 1.1.5-2
+- Rebuild for Python 3.6
+
 * Sun Sep 04 2016 Michele Baldessari <michele@acksyn.org> - 1.1.5-1
 - New upstream release
 
