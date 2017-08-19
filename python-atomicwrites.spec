@@ -11,7 +11,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    4%{?git_tag}%{?dist}
+Release:    5%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -34,12 +34,20 @@ BuildRequires:  python3-sphinx
 %endif
 
 
-%description
-This Python module provides atomic file writes on POSIX operating systems.
-It sports:
-* Race-free assertion that the target file doesn't yet exist
-* Windows support
+%global _description\
+This Python module provides atomic file writes on POSIX operating systems.\
+It sports:\
+* Race-free assertion that the target file doesn't yet exist\
+* Windows support\
 * Simple high-level API that wraps a very flexible class-based API
+
+%description %_description
+
+%package -n python2-%{short_name}
+Summary: %summary
+%{?python_provide:%python_provide python2-%{short_name}}
+
+%description -n python2-%{short_name} %_description
 
 %if %{with python3}
 %package -n python3-%{short_name}
@@ -102,7 +110,7 @@ popd
 #{__python3} run-tests.py
 #endif
 
-%files
+%files -n python2-%{short_name}
 %doc LICENSE README.rst
 %{python_sitelib}/*
 %{_mandir}/man1/atomicwrites.1.*
@@ -114,6 +122,10 @@ popd
 %endif
 
 %changelog
+* Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.5-5
+- Python 2 binary package renamed to python2-atomicwrites
+  See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
