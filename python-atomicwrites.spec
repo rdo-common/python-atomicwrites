@@ -11,7 +11,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    5%{?git_tag}%{?dist}
+Release:    6%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -20,12 +20,12 @@ Source0:    https://github.com/untitaker/%{name}/archive/%{version}.tar.gz#/%{na
 
 BuildArch:  noarch
 
-BuildRequires:  python-devel
+BuildRequires:  python2-devel
 %global short_name atomicwrites
 
-BuildRequires:  python-setuptools
-BuildRequires:  python-sphinx
-BuildRequires:  python-tox
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-sphinx
+BuildRequires:  python2-tox
 %if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -122,6 +122,10 @@ popd
 %endif
 
 %changelog
+* Mon Jan 15 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.1.5-6
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.5-5
 - Python 2 binary package renamed to python2-atomicwrites
   See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
