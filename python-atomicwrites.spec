@@ -1,7 +1,4 @@
-# invoke with "--with tests" to enable tests, currently disabled
-# as network is required
-
-%bcond_with tests
+%bcond_without tests
 
 %if 0%{?fedora}
 %bcond_without python3
@@ -11,7 +8,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    7%{?git_tag}%{?dist}
+Release:    8%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -25,12 +22,12 @@ BuildRequires:  python2-devel
 
 BuildRequires:  python2-setuptools
 BuildRequires:  python2-sphinx
-BuildRequires:  python2-tox
+BuildRequires:  python2-pytest
 %if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
-# No python3-tox exists yet
+BuildRequires:  python3-pytest
 %endif
 
 
@@ -70,7 +67,7 @@ cp -a . %{py3dir}
 %endif
 
 %build
-%{__python} setup.py --quiet build
+%{__python2} setup.py --quiet build
 export PYTHONPATH=`pwd`
 cd docs
 make %{?_smp_mflags} man
@@ -90,7 +87,7 @@ popd
 
 
 %install
-%{__python} setup.py --quiet install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py --quiet install -O1 --skip-build --root $RPM_BUILD_ROOT
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
 cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 
@@ -102,13 +99,12 @@ popd
 
 %check
 %if %{with tests}
-%{__python} run-tests.py
-%endif
+%{__python2} -m pytest -v
 
-# needs python3-tox bz #1010767
-#if {with python3}
-#{__python3} run-tests.py
-#endif
+%if %{with python3}
+%{__python3} -m pytest -v
+%endif
+%endif
 
 %files -n python2-%{short_name}
 %doc LICENSE README.rst
@@ -122,6 +118,11 @@ popd
 %endif
 
 %changelog
+* Mon May 07 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.5-8
+- Remove unused tox dependency, use pytest
+- Enable tests, they work without network
+- Use python2 explicitly instead of python
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
