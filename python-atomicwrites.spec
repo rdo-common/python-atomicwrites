@@ -22,7 +22,7 @@ BuildRequires:  python2-devel
 %global short_name atomicwrites
 
 BuildRequires:  python2-setuptools
-%if %{with docs}
+%if %{with docs} && %{without python3}
 BuildRequires:  python2-sphinx
 %endif
 %if %{with tests}
@@ -71,15 +71,10 @@ It sports:
 %prep
 %setup -q
 
-%if %{with python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
-
 %build
 %{__python2} setup.py --quiet build
 
-%if %{with docs}
+%if %{with docs} && %{without python3}
 export PYTHONPATH=`pwd`
 cd docs
 make %{?_smp_mflags} man
@@ -88,8 +83,7 @@ unset PYTHONPATH
 %endif
 
 %if %{with python3}
-pushd %{py3dir}
-%{__python3} setup.py --quiet build
+%py3_build
 
 %if %{with docs}
 export PYTHONPATH=`pwd`
@@ -98,21 +92,19 @@ make %{?_smp_mflags} SPHINXBUILD=sphinx-build-3 man
 cd ..
 unset PYTHONPATH
 %endif
-popd
 %endif
 
 
 %install
 %{__python2} setup.py --quiet install -O1 --skip-build --root $RPM_BUILD_ROOT
+
+%if %{with python3}
+%py3_install
+%endif
+
 %if %{with docs}
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
 cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
-%endif
-
-%if %{with python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
-popd
 %endif
 
 %check
@@ -127,7 +119,7 @@ popd
 %files -n python2-%{short_name}
 %doc LICENSE README.rst
 %{python_sitelib}/*
-%if %{with docs}
+%if %{with docs} && %{without python3}
 %{_mandir}/man1/atomicwrites.1.*
 %endif
 
@@ -135,6 +127,9 @@ popd
 %files -n python3-%{short_name}
 %doc README.rst LICENSE
 %{python3_sitelib}/*
+%if %{with docs}
+%{_mandir}/man1/atomicwrites.1.*
+%endif
 %endif
 
 %changelog
