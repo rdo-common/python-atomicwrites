@@ -22,12 +22,17 @@ BuildRequires:  python2-devel
 
 BuildRequires:  python2-setuptools
 BuildRequires:  python2-sphinx
+%if %{with tests}
 BuildRequires:  python2-pytest
+%endif
+
 %if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
+%if %{with tests}
 BuildRequires:  python3-pytest
+%endif
 %endif
 
 
