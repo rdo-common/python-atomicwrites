@@ -1,4 +1,5 @@
 %bcond_without tests
+%bcond_without docs
 
 %if 0%{?fedora}
 %bcond_without python3
@@ -21,7 +22,9 @@ BuildRequires:  python2-devel
 %global short_name atomicwrites
 
 BuildRequires:  python2-setuptools
+%if %{with docs}
 BuildRequires:  python2-sphinx
+%endif
 %if %{with tests}
 BuildRequires:  python2-pytest
 %endif
@@ -29,7 +32,9 @@ BuildRequires:  python2-pytest
 %if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+%if %{with docs}
 BuildRequires:  python3-sphinx
+%endif
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -73,28 +78,36 @@ cp -a . %{py3dir}
 
 %build
 %{__python2} setup.py --quiet build
+
+%if %{with docs}
 export PYTHONPATH=`pwd`
 cd docs
 make %{?_smp_mflags} man
 cd ..
 unset PYTHONPATH
+%endif
 
 %if %{with python3}
 pushd %{py3dir}
 %{__python3} setup.py --quiet build
+
+%if %{with docs}
 export PYTHONPATH=`pwd`
 cd docs
 make %{?_smp_mflags} SPHINXBUILD=sphinx-build-3 man
 cd ..
 unset PYTHONPATH
+%endif
 popd
 %endif
 
 
 %install
 %{__python2} setup.py --quiet install -O1 --skip-build --root $RPM_BUILD_ROOT
+%if %{with docs}
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
 cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
+%endif
 
 %if %{with python3}
 pushd %{py3dir}
@@ -114,7 +127,9 @@ popd
 %files -n python2-%{short_name}
 %doc LICENSE README.rst
 %{python_sitelib}/*
+%if %{with docs}
 %{_mandir}/man1/atomicwrites.1.*
+%endif
 
 %if %{with python3}
 %files -n python3-%{short_name}
