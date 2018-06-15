@@ -1,5 +1,3 @@
-%global _without_tests 1
-%global _without_docs 1
 %bcond_without tests
 %bcond_without docs
 
@@ -11,7 +9,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    9%{?git_tag}%{?dist}
+Release:    10%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -135,6 +133,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Fri Jun 15 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.5-10
+- Rebuilt for Python 3.7
+
 * Thu Jun 14 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.5-9
 - Bootstrap for Python 3.7
 
