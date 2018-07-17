@@ -9,7 +9,7 @@
 
 Name:       python-atomicwrites
 Version:    1.1.5
-Release:    11%{?git_tag}%{?dist}
+Release:    12%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -118,7 +118,7 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 
 %files -n python2-%{short_name}
 %doc LICENSE README.rst
-%{python_sitelib}/*
+%{python2_sitelib}/*
 %if %{with docs} && %{without python3}
 %{_mandir}/man1/atomicwrites.1.*
 %endif
@@ -133,6 +133,10 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Tue Jul 17 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.5-12
+- Update Python macros to new packaging standards
+  (See https://fedoraproject.org/wiki/Changes/Move_usr_bin_python_into_separate_package)
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
