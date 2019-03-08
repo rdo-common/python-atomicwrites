@@ -1,7 +1,7 @@
 %bcond_without tests
 %bcond_without docs
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %bcond_without python3
 %else
 %bcond_with python3
