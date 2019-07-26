@@ -9,7 +9,7 @@
 
 Name:       python-atomicwrites
 Version:    1.3.0
-Release:    1%{?git_tag}%{?dist}
+Release:    2%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -133,6 +133,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Fri Feb 08 2019 Alfredo Moralejo <amoralej@redhat.com> - 1.3.0-1
 - Update to 1.3.0
 
