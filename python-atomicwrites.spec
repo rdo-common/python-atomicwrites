@@ -1,7 +1,5 @@
-#bcond_without tests
-#bcond_without docs
-%bcond_with tests
-%bcond_with docs
+%bcond_without tests
+%bcond_without docs
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %bcond_without python3
