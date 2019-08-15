@@ -1,5 +1,7 @@
-%bcond_without tests
-%bcond_without docs
+#bcond_without tests
+#bcond_without docs
+%bcond_with tests
+%bcond_with docs
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %bcond_without python3
@@ -9,7 +11,7 @@
 
 Name:       python-atomicwrites
 Version:    1.3.0
-Release:    2%{?git_tag}%{?dist}
+Release:    3%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -133,6 +135,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Thu Aug 15 2019 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-3
+- Bootstrap build for Python 3.8 without optional BRs.
+
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
