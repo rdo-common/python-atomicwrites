@@ -9,7 +9,7 @@
 
 Name:       python-atomicwrites
 Version:    1.3.0
-Release:    4%{?git_tag}%{?dist}
+Release:    5%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -133,6 +133,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-5
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
 * Thu Aug 15 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-4
 - Rebuilt for Python 3.8
 
