@@ -1,15 +1,9 @@
 %bcond_without tests
 %bcond_without docs
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
 Name:       python-atomicwrites
 Version:    1.3.0
-Release:    5%{?git_tag}%{?dist}
+Release:    6%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -18,18 +12,8 @@ Source0:    https://github.com/untitaker/%{name}/archive/%{version}.tar.gz#/%{na
 
 BuildArch:  noarch
 
-BuildRequires:  python2-devel
 %global short_name atomicwrites
 
-BuildRequires:  python2-setuptools
-%if %{with docs} && %{without python3}
-BuildRequires:  python2-sphinx
-%endif
-%if %{with tests}
-BuildRequires:  python2-pytest
-%endif
-
-%if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with docs}
@@ -38,8 +22,6 @@ BuildRequires:  python3-sphinx
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
-%endif
-
 
 %global _description\
 This Python module provides atomic file writes on POSIX operating systems.\
@@ -50,13 +32,6 @@ It sports:\
 
 %description %_description
 
-%package -n python2-%{short_name}
-Summary: %summary
-%{?python_provide:%python_provide python2-%{short_name}}
-
-%description -n python2-%{short_name} %_description
-
-%if %{with python3}
 %package -n python3-%{short_name}
 Summary:    Python Atomic file writes on POSIX 
 
@@ -66,13 +41,11 @@ It sports:
 * Race-free assertion that the target file doesn't yet exist
 * Windows support
 * Simple high-level API that wraps a very flexible class-based API
-%endif
 
 %prep
 %setup -q
 
 %build
-%{__python2} setup.py --quiet build
 
 %if %{with docs} && %{without python3}
 export PYTHONPATH=`pwd`
@@ -82,7 +55,6 @@ cd ..
 unset PYTHONPATH
 %endif
 
-%if %{with python3}
 %py3_build
 
 %if %{with docs}
@@ -92,15 +64,11 @@ make %{?_smp_mflags} SPHINXBUILD=sphinx-build-3 man
 cd ..
 unset PYTHONPATH
 %endif
-%endif
 
 
 %install
-%{__python2} setup.py --quiet install -O1 --skip-build --root $RPM_BUILD_ROOT
 
-%if %{with python3}
 %py3_install
-%endif
 
 %if %{with docs}
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
@@ -109,30 +77,22 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 
 %check
 %if %{with tests}
-%{__python2} -m pytest -v
 
-%if %{with python3}
 %{__python3} -m pytest -v
 %endif
-%endif
 
-%files -n python2-%{short_name}
-%doc LICENSE README.rst
-%{python2_sitelib}/*
-%if %{with docs} && %{without python3}
-%{_mandir}/man1/atomicwrites.1.*
-%endif
-
-%if %{with python3}
 %files -n python3-%{short_name}
 %doc README.rst LICENSE
-%{python3_sitelib}/*
+%{python3_sitelib}/%{short_name}*/
 %if %{with docs}
 %{_mandir}/man1/atomicwrites.1.*
 %endif
-%endif
 
 %changelog
+* Sat Nov 23 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-6
+- Subpackage python2-atomicwrites has been removed
+  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
+
 * Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-5
 - Rebuilt for Python 3.8.0rc1 (#1748018)
 
