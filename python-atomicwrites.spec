@@ -1,5 +1,6 @@
+%{?python_enable_dependency_generator}
 %bcond_without tests
-%bcond_without docs
+%bcond_with docs
 
 Name:       python-atomicwrites
 Version:    1.3.0
